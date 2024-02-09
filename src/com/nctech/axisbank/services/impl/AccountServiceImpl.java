@@ -52,12 +52,19 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void delete(Long accountNo) {
-        Integer size = accountRepository.getAll().length - 1;
-        Account[] newArray = new Account[size];
-        for (int i = 0; i< size -1; i++){
-            if(accountRepository.getAll()[i].getAccountNumber().equals(accountNo));
-            newArray[i] = accountRepository.getAll()[i];
-        }
-        AccountDB.accounts = newArray;
+       Account existingAccount = getAccountByAccountNo(accountNo);
+       if(existingAccount != null){
+           Account[] accounts = getAll();
+           Account[] tempArray = new Account[accounts.length -1];
+
+           Integer index=0;
+           for (Account account: accounts){
+               if (!account.getAccountNumber().equals(accountNo)) {
+                   tempArray[index] = account;
+                   index++;
+               }
+               AccountDB.accounts = tempArray;
+           }
+       }
     }
 }
