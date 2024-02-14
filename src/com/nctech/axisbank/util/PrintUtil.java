@@ -20,6 +20,9 @@ public class PrintUtil {
                 8] See Account Details
                 9] Exit
                 """);
+    }
 
+    public static void printDivider() {
+        System.out.println("===============================================");
     }
 }

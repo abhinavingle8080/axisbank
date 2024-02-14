@@ -11,7 +11,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         Integer size = AccountDB.accounts.length +1;
         Account[] tempArr = new Account[size];
 
-        for (int i = 0; i < (AccountDB.accounts.length - 1); i++) {
+        for (int i = 0; i < (AccountDB.accounts.length); i++) {
             tempArr[i] = AccountDB.accounts[i];
         }
         tempArr[size-1] = account;

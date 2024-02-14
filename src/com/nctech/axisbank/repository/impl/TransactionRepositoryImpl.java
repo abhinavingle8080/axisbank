@@ -9,7 +9,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     public void save(Transaction transaction) {
         Integer size = TransactionDB.transactions.length + 1;
         Transaction[] tempArr = new Transaction[size];
-        for (int i = 0; i < (TransactionDB.transactions.length - 1); i++) {
+        for (int i = 0; i < (TransactionDB.transactions.length); i++) {
             tempArr[i] = TransactionDB.transactions[i];
         }
         tempArr[size - 1] = transaction;

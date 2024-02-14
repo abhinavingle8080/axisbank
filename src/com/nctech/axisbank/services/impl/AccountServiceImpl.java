@@ -15,14 +15,19 @@ public class AccountServiceImpl implements AccountService {
         Integer id = accountRepository.getAll().length + 1;
         Long accountNo = accountRepository.getAll().length + 1001L;
         Account account = new Account(id, name, accountNo, amount);
+        accountRepository.save(account);
         return accountNo;
     }
 
     @Override
-    public void update(Long accountNo, String name, Double amount) {
+    public void update(Long accountNo, String name) {
         Account accountToBeUpdated = getAccountByAccountNo(accountNo);
-        accountToBeUpdated.setName(name);
-        accountToBeUpdated.setAmount(amount);
+        if(accountToBeUpdated == null){
+            System.out.println("Your Account Does No Exits");
+        } else{
+            accountToBeUpdated.setName(name);
+//        accountToBeUpdated.setAmount(amount);
+        }
     }
 
     @Override
@@ -51,20 +56,19 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void delete(Long accountNo) {
-       Account existingAccount = getAccountByAccountNo(accountNo);
-       if(existingAccount != null){
+    public Boolean delete(Long accountNo) {
+       Boolean isDeleted = false;
            Account[] accounts = getAll();
            Account[] tempArray = new Account[accounts.length -1];
-
-           Integer index=0;
-           for (Account account: accounts){
-               if (!account.getAccountNumber().equals(accountNo)) {
-                   tempArray[index] = account;
-                   index++;
+//           Integer index=0;
+           for (int i = 0; i < (accounts.length); i++ ){
+               if (!accounts[i].getAccountNumber().equals(accountNo)) {
+                   tempArray[i] = accounts[i];
+//                   index++;
                }
                AccountDB.accounts = tempArray;
            }
-       }
+           isDeleted = true;
+       return isDeleted;
     }
 }
